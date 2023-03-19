@@ -215,6 +215,11 @@ impl AsIdentifier<PageId> for Page {
     }
 }
 
+#[derive(Serialize, Debug, Eq, PartialEq)]
+pub struct PageUpdateRequest {
+    pub properties: Properties,
+}
+
 #[derive(Eq, Serialize, Deserialize, Clone, Debug, PartialEq)]
 #[serde(tag = "object")]
 #[serde(rename_all = "snake_case")]

@@ -265,7 +265,7 @@ pub struct RelationValue {
 #[serde(tag = "type", rename_all = "snake_case")]
 pub enum RollupValue {
     Number { number: Option<Number> },
-    Date { date: Option<DateTime<Utc>> },
+    Date { date: Option<DateValue> },
     Array { array: Vec<RollupPropertyValue> },
 }
 
