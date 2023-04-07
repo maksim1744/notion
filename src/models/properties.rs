@@ -232,6 +232,7 @@ pub struct SelectedValue {
 pub enum DateOrDateTime {
     Date(NaiveDate),
     DateTime(DateTime<Utc>),
+    String(String),
 }
 
 #[derive(Serialize, Deserialize, Debug, Eq, PartialEq, Clone)]
