@@ -251,6 +251,7 @@ pub enum PropertyCondition {
     Number(NumberCondition),
     Checkbox(CheckboxCondition),
     Select(SelectCondition),
+    Status(SelectCondition),
     MultiSelect(MultiSelectCondition),
     Date(DateCondition),
     People(PeopleCondition),
