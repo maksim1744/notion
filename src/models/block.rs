@@ -38,7 +38,7 @@ pub struct InternalFileObject {
 
 #[derive(Serialize, Deserialize, Debug, Eq, PartialEq, Clone)]
 pub struct ExternalFileObject {
-    url: String,
+    pub url: String,
 }
 
 #[derive(Serialize, Deserialize, Debug, Eq, PartialEq, Clone)]

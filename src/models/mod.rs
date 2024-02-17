@@ -220,6 +220,11 @@ pub struct PageUpdateRequest {
     pub properties: Properties,
 }
 
+#[derive(Serialize, Debug, Eq, PartialEq)]
+pub struct AppendChildrenRequest {
+    pub children: Vec<CreateBlock>,
+}
+
 #[derive(Eq, Serialize, Deserialize, Clone, Debug, PartialEq)]
 #[serde(tag = "object")]
 #[serde(rename_all = "snake_case")]

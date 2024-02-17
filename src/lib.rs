@@ -4,7 +4,7 @@ use crate::models::search::{DatabaseQuery, SearchRequest};
 use crate::models::{Database, ListResponse, Object, Page};
 use ids::{AsIdentifier, PageId};
 use models::block::Block;
-use models::{PageCreateRequest, PageUpdateRequest};
+use models::{AppendChildrenRequest, PageCreateRequest, PageUpdateRequest};
 use reqwest::header::{HeaderMap, HeaderValue};
 use reqwest::{header, Client, ClientBuilder, RequestBuilder};
 use tracing::Instrument;
@@ -265,6 +265,33 @@ impl NotionApi {
 
         match result {
             Object::Page { page } => Ok(page),
+            response => Err(Error::UnexpectedResponse { response }),
+        }
+    }
+
+    /// Add block children and return all children
+    pub async fn append_block_children<B, T>(
+        &self,
+        block_id: B,
+        children: T,
+    ) -> Result<ListResponse<Block>, Error>
+    where
+        B: AsIdentifier<BlockId>,
+        T: Into<AppendChildrenRequest>,
+    {
+        let result = self
+            .make_json_request(
+                self.client
+                    .patch(&format!(
+                        "https://api.notion.com/v1/blocks/{block_id}/children",
+                        block_id = block_id.as_id()
+                    ))
+                    .json(&children.into()),
+            )
+            .await?;
+
+        match result {
+            Object::List { list } => Ok(list.expect_blocks()?),
             response => Err(Error::UnexpectedResponse { response }),
         }
     }
